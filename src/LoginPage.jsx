@@ -9,10 +9,11 @@ function LoginPage() {
   const location = useLocation();
   const { login } = useApp();
   const [form, setForm] = useState({
-    email: '',
+    email: location.state?.registeredEmail || '',
     password: '',
   });
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState(location.state?.message || '');
   const [submitting, setSubmitting] = useState(false);
 
   const redirectTo = location.state?.redirectTo || '/';
@@ -67,6 +68,10 @@ function LoginPage() {
                   required
                 />
               </div>
+
+              {successMessage ? (
+                <p style={{ color: '#D4EDDA', margin: 0 }}>{successMessage}</p>
+              ) : null}
 
               {error ? <p style={{ color: '#F8D7DA', margin: 0 }}>{error}</p> : null}
 

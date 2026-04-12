@@ -23,7 +23,13 @@ function RegisterPage() {
       setSubmitting(true);
       setError('');
       await register(form);
-      navigate('/', { replace: true });
+      navigate('/login', { 
+        replace: true,
+        state: { 
+          registeredEmail: form.email,
+          message: 'Registrasi berhasil! Silakan login dengan email dan kata sandi Anda.'
+        }
+      });
     } catch (requestError) {
       setError(requestError.message);
     } finally {

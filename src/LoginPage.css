@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+.login-page-wrapper {
+  height: 100vh; 
+  width: 100vw; 
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; 
+  background-color: #A12628;
+  font-family: 'Poppins', sans-serif; /* Set global font untuk wrapper */
+}
+
+/* Container Utama yang membagi 2 sisi */
+.login-main-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.login-form-side {
+  flex: 1; /* Mengambil 50% lebar */
+  background-color: #A12628; /* Warna latar belakang merah gelap Anda */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  animation: slideInFromLeft 0.6s ease-out;
+}
+
+/* Container kecil untuk konten formulir agar rapi di tengah */
+.login-form-content {
+  width: 100%;
+  max-width: 450px; /* Batas lebar konten agar tidak terlalu melebar */
+  text-align: center;
+}
+
+/* Text "CakeTime" */
+.brand-logo-text {
+  font-family: 'Poppins', sans-serif;
+  color: #F3DDC4; 
+  font-size: 35px; /* Diperbesar sedikit */
+  font-weight: 800; /* Dibuat Extra Bold */
+  letter-spacing: -1px; /* Merapatkan huruf agar terlihat lebih modern/premium */
+  margin-bottom: 30px;
+  text-transform: none;
+}
+
+/* Text "SELAMAT DATANG" */
+.welcome-heading {
+  font-family: 'Poppins', sans-serif;
+  color: #F3DDC4;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.welcome-subtext {
+  font-family: 'Poppins', sans-serif;
+  color: #F3DDC4;
+  font-size: 14px;
+  font-weight: 300; /* Dibuat lebih tipis agar heading menonjol */
+  margin-bottom: 10px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.actual-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+}
+
+.form-input-group {
+  text-align: left;
+}
+
+/* Label Input */
+.form-input-group label {
+  font-family: 'Poppins', sans-serif;
+  color: #F3DDC4;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Styling Elemen Input */
+.form-input-group input {
+  width: 100%;
+  padding: 16px;
+  border: 1.5px solid transparent; /* Border transparan untuk efek fokus */
+  border-radius: 12px; /* Lebih rounded */
+  background-color: rgba(230, 197, 197, 0.9); /* Sedikit transparan */
+  color: #333; 
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+/* Saat input dalam keadaan fokus (di-klik) */
+.form-input-group input:focus {
+  outline: none;
+  background-color: #F3DDC4; /* Berubah warna saat diklik */
+  border-color: #1A0D0D;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Styling Tombol "Masuk" */
+.login-submit-button {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background-color: #1A0D0D; 
+  color: #F3DDC4;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Efek tombol di-hover */
+.login-submit-button:hover {
+  background-color: #2D1A1A;
+  transform: translateY(-2px); /* Efek melayang sedikit */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.login-submit-button:active {
+  transform: translateY(0);
+}
+
+/* Text "Belum memiliki akun?" */
+.register-form-side {
+  flex: 1;
+  background-color: #A12628;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  animation: slideInFromRight 0.6s ease-out; /* Tambahkan ini */
+}
+
+.register-redirect-text {
+  font-family: 'Poppins', sans-serif;
+  color: #F8D7DA;
+  font-size: 16px;
+  margin-top: 40px;
+}
+
+/* Styling Link "Register" */
+.register-redirect-text a {
+  color: #F3DDC4;
+  text-decoration: none;
+  font-weight: 700;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.register-redirect-text a:hover {
+  text-decoration: underline;
+  border-color: #F3DDC4;
+}
+
+.register-container {
+  flex-direction: row; /* Pastikan tidak row-reverse */
+}
+
+.login-image-side {
+  flex: 1.2; 
+  background-color: #F3DDC4; 
+  overflow: hidden; 
+}
+
+.full-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.95) contrast(1.05); 
+}

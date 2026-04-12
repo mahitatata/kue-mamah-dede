@@ -1,0 +1,119 @@
+/* Container Pesanan */
+.pesanan-container {
+  background-color: #EBD9B4; 
+  min-height: 100vh;
+  width: 100%;
+}
+
+.pesanan-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pesanan-title {
+  color: #A12628;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 50px;
+}
+
+.pesanan-page-wrapper {
+  background-color: #EBD9B4; 
+  min-height: 100vh;   
+  width: 100%;     
+  padding-top: 120px;        
+}
+
+.filter-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.filter-btn {
+  text-decoration: none; 
+  display: inline-block;
+  padding: 10px 25px;
+  border-radius: 25px;
+  border: none;
+  background: white;
+  color: #A12628;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.filter-btn:hover {
+  background: #f0f0f0;
+}
+
+.filter-btn.active {
+  background: #A12628;
+  color: white;
+}
+
+/* Order Card */
+.order-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.order-card {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  border-radius: 0; 
+  text-align: left;
+}
+
+.order-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.order-img {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.order-details h3 {
+  margin: 0;
+  color: #A12628;
+  font-size: 18px;
+}
+
+.order-details p {
+  margin: 5px 0;
+  color: #5D2A2A;
+  font-weight: 600;
+}
+
+.status-badge {
+  color: white;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.order-arrow {
+  color: #000;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.filter-btn {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}

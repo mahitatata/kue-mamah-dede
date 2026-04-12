@@ -1,34 +1,67 @@
-import React, { useState } from 'react'; 
-import { NavLink, Link } from 'react-router-dom';
-import 'bootstrap-icons/font/bootstrap-icons.css'; 
+import { NavLink, useNavigate } from 'react-router-dom';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './navbar.css';
+import { useApp } from './context/AppContext';
+
+function navClass({ isActive }) {
+  return `navbar-link ${isActive ? 'active' : ''}`;
+}
 
 function Navbar() {
-  const [cartCount, setCartCount] = useState(3); 
+  const navigate = useNavigate();
+  const { cart, user, isAdmin, logout } = useApp();
+
+  async function handleLogout() {
+    await logout();
+    navigate('/');
+  }
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">CakeTime</Link>
-        
+        <NavLink to="/" className="navbar-logo">CakeTime</NavLink>
+
         <div className="navbar-menu">
-          <NavLink to="/" className="navbar-link">
+          <NavLink to="/" className={navClass}>
             Beranda
           </NavLink>
-          <NavLink to="/pesanan" className="navbar-link">
-            Pesanan
-          </NavLink>
 
-          <div className="navbar-icons">
-            <NavLink to="/keranjang" className="navbar-link icon-wrapper">
-                <i className="bi bi-cart3 navbar-icon"></i>
-                {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+          {user ? (
+            <>
+              <NavLink to="/pesanan" className={navClass}>
+                Pesanan
+              </NavLink>
+              {isAdmin ? (
+                <NavLink to="/admin" className={navClass}>
+                  Admin
+                </NavLink>
+              ) : null}
+
+              <div className="navbar-icons">
+                <NavLink to="/keranjang" className={({ isActive }) => `navbar-link icon-wrapper ${isActive ? 'active' : ''}`}>
+                  <i className="bi bi-cart3 navbar-icon"></i>
+                  {cart.count > 0 && <span className="cart-badge">{cart.count}</span>}
                 </NavLink>
 
-            <NavLink to="/profil" className="navbar-link">
-              <i className="bi bi-person navbar-icon"></i>
-            </NavLink>
-          </div>
+                <NavLink to="/profil" className={navClass}>
+                  <i className="bi bi-person navbar-icon"></i>
+                </NavLink>
+
+                <button type="button" className="navbar-button" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="navbar-icons">
+              <NavLink to="/login" className={navClass}>
+                Login
+              </NavLink>
+              <NavLink to="/register" className="navbar-button">
+                Register
+              </NavLink>
+            </div>
+          )}
         </div>
       </div>
     </nav>

@@ -1,40 +1,55 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './LoginPage.css'; 
-import bgImage from './assets/wallpaper-cake-pink.jpeg'; 
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './LoginPage.css';
+import bgImage from './assets/wallpaper-cake-pink.jpeg';
+import { useApp } from './context/AppContext';
 
 function RegisterPage() {
-  const [nama, setNama] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { register } = useApp();
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+  });
+  const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Register attempt with:', { nama, email, password });
-  };
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    try {
+      setSubmitting(true);
+      setError('');
+      await register(form);
+      navigate('/', { replace: true });
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <div className="login-page-wrapper">
-      {/* Kita tambahkan row-reverse di sini agar Form pindah ke Kanan dan Gambar ke Kiri */}
       <div className="login-main-container" style={{ flexDirection: 'row-reverse' }}>
-        
-        {/* Sisi Kanan (Formulir) */}
         <div className="login-form-side">
           <div className="login-form-content">
             <h1 className="brand-logo-text">CakeTime</h1>
-            <h2 className="welcome-heading">SELAMAT DATANG</h2>
+            <h2 className="welcome-heading">BUAT AKUN BARU</h2>
             <p className="welcome-subtext">
-              Masukkan Nama, Email, dan Kata sandi anda untuk mengakses akun anda
+              Lengkapi data anda agar bisa berbelanja dan memantau pesanan dari backend.
             </p>
 
             <form onSubmit={handleSubmit} className="actual-form">
               <div className="form-input-group">
-                <label htmlFor="nama">Nama</label>
+                <label htmlFor="name">Nama</label>
                 <input
                   type="text"
-                  id="nama"
-                  value={nama}
-                  onChange={(e) => setNama(e.target.value)}
+                  id="name"
+                  value={form.name}
+                  onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
                   placeholder="Masukkan nama lengkap"
                   required
                 />
@@ -45,8 +60,8 @@ function RegisterPage() {
                 <input
                   type="email"
                   id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={form.email}
+                  onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
                   placeholder="name@email.com"
                   required
                 />
@@ -57,15 +72,29 @@ function RegisterPage() {
                 <input
                   type="password"
                   id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
+                  value={form.password}
+                  onChange={(event) => setForm((current) => ({ ...current, password: event.target.value }))}
+                  placeholder="Minimal 8 karakter"
                   required
                 />
               </div>
 
-              <button type="submit" className="login-submit-button">
-                Masuk
+              <div className="form-input-group">
+                <label htmlFor="password_confirmation">Konfirmasi Kata Sandi</label>
+                <input
+                  type="password"
+                  id="password_confirmation"
+                  value={form.password_confirmation}
+                  onChange={(event) => setForm((current) => ({ ...current, password_confirmation: event.target.value }))}
+                  placeholder="Ulangi kata sandi"
+                  required
+                />
+              </div>
+
+              {error ? <p style={{ color: '#F8D7DA', margin: 0 }}>{error}</p> : null}
+
+              <button type="submit" className="login-submit-button" disabled={submitting}>
+                {submitting ? 'Mendaftar...' : 'Daftar'}
               </button>
             </form>
 
@@ -75,11 +104,9 @@ function RegisterPage() {
           </div>
         </div>
 
-        {/* Sisi Kiri (Gambar) */}
         <div className="login-image-side">
           <img src={bgImage} alt="Cake Showcase" className="full-bg-image" />
         </div>
-
       </div>
     </div>
   );

@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Product;
+
+class ProductController extends Controller
+{
+    public function index()
+    {
+        return Product::query()
+            ->where('is_active', true)
+            ->orderBy('id')
+            ->get();
+    }
+
+    public function show(Product $product)
+    {
+        return $product;
+    }
+}

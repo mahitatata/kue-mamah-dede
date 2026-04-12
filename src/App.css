@@ -280,3 +280,22 @@ body {
   text-align: center;
   width: 100%;
 }
+
+@media (max-width: 900px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .menu-section {
+    width: calc(100% - 32px);
+    padding: 28px 20px;
+  }
+
+  .menu-title-wrapper {
+    flex-direction: column;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+}

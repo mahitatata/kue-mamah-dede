@@ -16,6 +16,15 @@ const initialForm = {
   image: null,
 };
 
+const CATEGORIES = [
+  'Portion Cake',
+  'Cupcake',
+  'Whole Cake',
+  'Strawberry Pancake',
+  'Tiramisu Cake',
+  'Cheesecake',
+];
+
 function AdminPage() {
   const { token } = useApp();
   const [products, setProducts] = useState([]);
@@ -187,7 +196,21 @@ function AdminPage() {
           <form className="admin-form" onSubmit={handleSubmit}>
             <input name="name" placeholder="Nama produk" value={form.name} onChange={handleChange} required />
             <input name="slug" placeholder="Slug URL" value={form.slug} onChange={handleChange} />
-            <input name="category" placeholder="Kategori" value={form.category} onChange={handleChange} required />
+            
+            <select name="category" value={form.category} onChange={handleChange} required style={{
+              padding: '10px',
+              borderRadius: '8px',
+              border: '1px solid #ddd',
+              fontSize: '14px',
+              width: '100%',
+              boxSizing: 'border-box',
+            }}>
+              <option value="">Pilih Kategori</option>
+              {CATEGORIES.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+            
             <textarea
               name="description"
               placeholder="Deskripsi produk"

@@ -39,6 +39,9 @@ function ProtectedRoute({ children, adminOnly = false, loginPath = '/login' }) {
 function HomePage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState('default');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
     let active = true;
@@ -64,6 +67,24 @@ function HomePage() {
     };
   }, []);
 
+  // Extract unique categories from products database
+  const categories = ['all', ...new Set(products.map(p => p.category).filter(Boolean))];
+
+  // Filter and sort products
+  const filteredProducts = products
+    .filter(product => {
+      const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      if (sortBy === 'name-asc') return a.name.localeCompare(b.name);
+      if (sortBy === 'name-desc') return b.name.localeCompare(a.name);
+      if (sortBy === 'price-asc') return a.price - b.price;
+      if (sortBy === 'price-desc') return b.price - a.price;
+      return 0;
+    });
+
   return (
     <div className="container">
       <div className="hero">
@@ -82,10 +103,112 @@ function HomePage() {
           <p className="menu-subtitle">Apa yang anda inginkan?</p>
         </div>
 
-        {loading ? <p>Memuat katalog...</p> : null}
+        {loading ? <p>Memuat katalog...</p> : (
+          <>
+            {/* Filter Section */}
+            <div className="filter-section" style={{ marginBottom: 30 }}>
+              {/* Search Bar */}
+              <div className="search-bar" style={{ marginBottom: 20 }}>
+                <input
+                  type="text"
+                  placeholder="Cari kue..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '12px 20px',
+                    borderRadius: 25,
+                    border: '2px solid #ddd',
+                    fontSize: '16px',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+
+              {/* Category Filter */}
+              <div className="category-filter" style={{ marginBottom: 20 }}>
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
+                  {categories.map(cat => (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      style={{
+                        padding: '8px 20px',
+                        borderRadius: 20,
+                        border: 'none',
+                        backgroundColor: selectedCategory === cat ? '#a83232' : '#f0e0c8',
+                        color: selectedCategory === cat ? 'white' : '#5c3d2e',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        transition: 'all 0.3s',
+                      }}
+                    >
+                      {cat === 'all' ? 'Semua' : cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sort Options */}
+              <div className="sort-filter" style={{ display: 'flex', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => setSortBy('default')}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: 15,
+                    border: sortBy === 'default' ? '2px solid #a83232' : '1px solid #ddd',
+                    backgroundColor: sortBy === 'default' ? '#a83232' : 'white',
+                    color: sortBy === 'default' ? 'white' : '#5c3d2e',
+                    cursor: 'pointer',
+                    fontSize: '13px',
+                  }}
+                >
+                  Default
+                </button>
+                <button
+                  onClick={() => setSortBy('name-asc')}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: 15,
+                    border: sortBy === 'name-asc' ? '2px solid #a83232' : '1px solid #ddd',
+                    backgroundColor: sortBy === 'name-asc' ? '#a83232' : 'white',
+                    color: sortBy === 'name-asc' ? 'white' : '#5c3d2e',
+                    cursor: 'pointer',
+                    fontSize: '13px',
+                  }}
+                >
+                  A-Z
+                </button>
+                <button
+                  onClick={() => setSortBy('name-desc')}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: 15,
+                    border: sortBy === 'name-desc' ? '2px solid #a83232' : '1px solid #ddd',
+                    backgroundColor: sortBy === 'name-desc' ? '#a83232' : 'white',
+                    color: sortBy === 'name-desc' ? 'white' : '#5c3d2e',
+                    cursor: 'pointer',
+                    fontSize: '13px',
+                  }}
+                >
+                  Z-A
+                </button>
+              </div>
+            </div>
+
+            {/* Results count */}
+            {searchQuery || selectedCategory !== 'all' ? (
+              <p style={{ textAlign: 'center', color: '#666', marginBottom: 20 }}>
+                Menampilkan {filteredProducts.length} dari {products.length} kue
+              </p>
+            ) : null}
+          </>
+        )}
 
         <div className="menu-grid">
-          {products.map((item) => (
+          {filteredProducts.map((item) => (
             <Link to={`/${item.slug}`} key={item.id} className="card-link">
               <div className="card">
                 <div className="image-container">
@@ -96,6 +219,12 @@ function HomePage() {
             </Link>
           ))}
         </div>
+
+        {filteredProducts.length === 0 && !loading ? (
+          <p style={{ textAlign: 'center', color: '#999', padding: 40 }}>
+            Tidak ada kue yang ditemukan
+          </p>
+        ) : null}
 
         <div className="why-section">
         <div className="line" style={{ marginBottom: '30px' }}></div>

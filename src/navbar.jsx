@@ -31,6 +31,10 @@ function Navbar() {
               <NavLink to="/pesanan" className={navClass}>
                 Pesanan
               </NavLink>
+
+              <NavLink to="/tentang-kami" className={navClass}>
+                Tentang Kami
+              </NavLink>
               {isAdmin ? (
                 <NavLink to="/admin" className={navClass}>
                   Admin

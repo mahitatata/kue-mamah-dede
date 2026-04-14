@@ -12,6 +12,7 @@ import ProductPage from './ProductPage';
 import OrdersPage from './OrdersPage';
 import PaymentResultPage from './PaymentResultPage';
 import AdminPage from './AdminPage';
+import TentangKamiPage from './TentangKamiPage';
 import Footer from './Footer';
 import heroImage from './assets/wallpaper-cake-merah.jpeg';
 import cakeIcon from './assets/cake.png';
@@ -372,6 +373,7 @@ function AppRoutes() {
             </ProtectedRoute>
           )}
         />
+        <Route path="/tentang-kami" element={<TentangKamiPage />} />
         <Route path="/:slug" element={<ProductPage />} />
       </Routes>
     </>

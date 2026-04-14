@@ -11,7 +11,7 @@ const Footer = () => {
       <footer className="footer-container">
           <div className="footer-col">
             <h3>Tentang Kami</h3>
-            <p>Kami menyediakan berbagai kue fresh dengan sistem pre-order (PO), dibuat khusus untuk setiap pelanggan. Dengan bahan pilihan dan rasa yang lezat, kami siap menemani momen spesial Anda. Pesan mudah, bayar cukup dengan QRIS!</p>
+            <p>Menciptakan kebahagiaan melalui setiap gigitan. Kami berdedikasi menyajikan kue kualitas premium untuk merayakan setiap momen istimewa Anda.</p>
           </div>
           <div className="footer-col">
             <h3>Kontak</h3>

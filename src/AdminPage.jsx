@@ -20,8 +20,8 @@ const CATEGORIES = [
   'Portion Cake',
   'Cupcake',
   'Whole Cake',
-  'Strawberry Pancake',
-  'Tiramisu Cake',
+  'Pancake',
+  'Tiramisu',
   'Cheesecake',
 ];
 

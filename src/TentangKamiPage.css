@@ -1,0 +1,170 @@
+.about-page-wrapper {
+  background-color: #F3DDC4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0; 
+}
+
+.about-hero-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block; 
+  margin-top: 70px;
+}
+
+.about-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-content-container {
+  max-width: 900px;
+  margin: -40px auto 0 auto;
+  padding: 0 20px 100px 20px; 
+  position: relative;
+  z-index: 2;
+  flex: 1 0 auto;
+}
+
+.about-card {
+  background-color: #ffffff;
+  border-radius: 30px;
+  padding: 50px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Dekorasi Garis dan Icon */
+.about-header-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.decoration-line {
+  height: 2px;
+  background-color: #A12628;
+  flex: 0.3;
+}
+
+.mini-cake-icon {
+  width: 40px;
+}
+
+.about-main-title {
+  color: #A12628;
+  font-weight: 800;
+  margin-bottom: 40px;
+  font-size: 28px;
+}
+
+/* Layout Grid Tengah */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 30px;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.featured-about-img {
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.about-greeting {
+  color: #A12628;
+  font-weight: 800;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.about-text-side p {
+  color: #A12628;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+.about-full-description {
+  margin-top: 50px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 40px;
+}
+
+.description-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.feature-item {
+  display: flex;
+  gap: 15px;
+  text-align: left;
+  padding: 20px;
+  background: #fdf8f2; /* Warna krem sangat muda agar kontras */
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: #f9ece0;
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 24px;
+  background: white;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  flex-shrink: 0;
+}
+
+.feature-text h3 {
+  color: #A12628;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.feature-text p {
+  color: #5D2A2A;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.closing-statement {
+  font-style: italic;
+  color: #5D2A2A;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-content-container {
+    margin-top: -50px;
+  }
+    .description-feature-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -14,6 +14,7 @@ import PaymentResultPage from './PaymentResultPage';
 import AdminPage from './AdminPage';
 import Footer from './Footer';
 import heroImage from './assets/wallpaper-cake-merah.jpeg';
+import cakeIcon from './assets/cake.png';
 import { api } from './lib/api';
 import { useApp } from './context/AppContext';
 
@@ -39,6 +40,7 @@ function ProtectedRoute({ children, adminOnly = false, loginPath = '/login' }) {
 function HomePage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     let active = true;
@@ -46,9 +48,22 @@ function HomePage() {
     async function loadProducts() {
       try {
         const response = await api.getProducts();
+        const productList = Array.isArray(response)
+          ? response
+          : (Array.isArray(response?.data) ? response.data : []);
 
         if (active) {
-          setProducts(response);
+          setProducts(productList);
+          setErrorMessage(
+            productList.length === 0 && !Array.isArray(response)
+              ? 'Format data produk dari server tidak sesuai.'
+              : '',
+          );
+        }
+      } catch (error) {
+        if (active) {
+          setProducts([]);
+          setErrorMessage(error?.message || 'Gagal memuat katalog.');
         }
       } finally {
         if (active) {
@@ -73,7 +88,9 @@ function HomePage() {
       <div className="menu-section">
         <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 10 }}>
           <div className="line"></div>
-          <div className="menu-icon-top">Cake</div>
+          <div className="menu-icon-top">
+            <img src={cakeIcon} alt="Cake Icon" style={{ height: '50px', width: 'auto' }} />
+          </div>
           <div className="line"></div>
         </div>
         <div className="menu-title-wrapper">
@@ -83,6 +100,7 @@ function HomePage() {
         </div>
 
         {loading ? <p>Memuat katalog...</p> : null}
+        {!loading && errorMessage ? <p>{errorMessage}</p> : null}
 
         <div className="menu-grid">
           {products.map((item) => (

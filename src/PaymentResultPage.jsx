@@ -82,11 +82,18 @@ function PaymentResultPage() {
             </div>
           ) : null}
 
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 24, flexWrap: 'wrap' }}>
-            <Link className="order-button" style={{ maxWidth: 260, textAlign: 'center', textDecoration: 'none' }} to="/pesanan">
+          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 32, flexWrap: 'wrap' }}>
+            <Link 
+              className="order-button" 
+              style={{ maxWidth: 260, textDecoration: 'none', marginTop: 0 }} 
+              to="/pesanan"
+            >
               Lihat Pesanan
             </Link>
-            <Link className="result-secondary-button" to="/">
+            <Link 
+              className="result-secondary-button" 
+              to="/"
+            >
               Kembali ke Beranda
             </Link>
           </div>

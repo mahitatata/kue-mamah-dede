@@ -15,6 +15,42 @@ class MidtransService
         Config::$isProduction = (bool) config('midtrans.is_production');
         Config::$isSanitized = true;
         Config::$is3ds = true;
+
+        $curlOptions = [];
+        $disableSslVerify = (bool) config('midtrans.disable_ssl_verify');
+        $caBundle = (string) config('midtrans.ca_bundle');
+
+        if ($disableSslVerify) {
+            $curlOptions[CURLOPT_SSL_VERIFYPEER] = false;
+            $curlOptions[CURLOPT_SSL_VERIFYHOST] = 0;
+        } elseif ($caBundle !== '') {
+            $resolvedPath = $this->resolveCaBundlePath($caBundle);
+
+            if (is_file($resolvedPath)) {
+                $curlOptions[CURLOPT_CAINFO] = $resolvedPath;
+                $curlOptions[CURLOPT_SSL_VERIFYPEER] = true;
+                $curlOptions[CURLOPT_SSL_VERIFYHOST] = 2;
+            }
+        }
+
+        if (! empty($curlOptions)) {
+            $existingCurlOptions = Config::$curlOptions;
+
+            if (! isset($existingCurlOptions[CURLOPT_HTTPHEADER])) {
+                $existingCurlOptions[CURLOPT_HTTPHEADER] = [];
+            }
+
+            Config::$curlOptions = array_replace($existingCurlOptions, $curlOptions);
+        }
+    }
+
+    private function resolveCaBundlePath(string $path): string
+    {
+        if (str_starts_with($path, '/') || preg_match('/^[a-zA-Z]:[\\\\\\/]/', $path)) {
+            return $path;
+        }
+
+        return base_path($path);
     }
 
     public function createTransaction(Order $order): object

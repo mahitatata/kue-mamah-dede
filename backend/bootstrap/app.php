@@ -5,6 +5,14 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
+if (PHP_OS_FAMILY === 'Windows' && isset($_ENV['SystemRoot']) && ! isset($_ENV['SYSTEMROOT'])) {
+    $_ENV['SYSTEMROOT'] = $_ENV['SystemRoot'];
+}
+
+if (PHP_OS_FAMILY === 'Windows' && array_key_exists('SystemRoot', $_ENV)) {
+    unset($_ENV['SystemRoot']);
+}
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',

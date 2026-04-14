@@ -1,0 +1,6 @@
+{
+  "terminal.integrated.env.windows": {
+    "PHPRC": "C:\\Users\\ika_a\\Downloads\\php-8.4.13-Win32-vs17-x64",
+    "PATH": "C:\\Users\\ika_a\\Downloads\\php-8.4.13-Win32-vs17-x64;${env:Path}"
+  }
+}
